@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import logReducer from './logReducer';
+import popularReducer from './popularReducer';
 import genereReducer from './genereReducer';
 import topRatedReducer from './topRatedReducer';
 import upcomingReducer from './upcomingReducer';
@@ -15,7 +15,7 @@ import personMoviesReducer from './personMoviesReducer';
 
 
 export default combineReducers({
-    log: logReducer,
+    populars: popularReducer,
     genere: genereReducer,
     topRated: topRatedReducer,
     upcoming: upcomingReducer,

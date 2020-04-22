@@ -1,8 +1,7 @@
-import { GET_MOVIE_SEARCH, MOVIE_SEARCH_ERROR, SET_LOADING } from '../actions/types';
+import { GET_MOVIE_SEARCH, MOVIE_SEARCH_ERROR} from '../actions/types';
 
 const initialState = {
     movieSearch: null,
-    current: null,
     loading: false,
     error: null
 }
@@ -14,12 +13,6 @@ export default (state = initialState, action) => {
                 ...state,
                 movieSearch: action.payload,
                 loading: false
-            }
-
-        case SET_LOADING:
-            return {
-                ...state,
-                loading: true
             }
 
             case MOVIE_SEARCH_ERROR:

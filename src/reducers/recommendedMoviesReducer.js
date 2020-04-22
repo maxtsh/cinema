@@ -1,34 +1,33 @@
-import { GET_RECOMMENDED_MOVIES, SET_LOADING, RECOMMENDED_MOVIES_ERROR } from '../actions/types';
+import { GET_RECOMMENDED_MOVIES, RECOMMENDED_MOVIES_ERROR, CLEAR_RECOMMENDED_MOVIES } from '../actions/types';
 
 const initialState = {
-    recommendedMovies: null,
-    current: null,
-    loading: false,
+    movies: null,
+    loading: true,
     error: null
 }
 
 export default (state = initialState, action) => {
     switch(action.type){
-
         case GET_RECOMMENDED_MOVIES:
             return{
                 ...state,
-                recommendedMovies: action.payload,
-                loading: false
+                loading: false,
+                movies: action.payload
             }
 
-        case SET_LOADING:
-            return {
+        case CLEAR_RECOMMENDED_MOVIES:
+            return{
                 ...state,
-                loading: true
+                loading: true,
+                movies: null
             }
 
-            case RECOMMENDED_MOVIES_ERROR:
-                console.log(action.payload);
-                return{
-                    ...state,
-                    error: action.payload
-                }
+        case RECOMMENDED_MOVIES_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default: 
             return state;

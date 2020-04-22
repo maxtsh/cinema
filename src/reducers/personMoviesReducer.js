@@ -1,9 +1,8 @@
-import { GET_PERSON_MOVIES, PERSON_MOVIES_ERROR, SET_LOADING } from '../actions/types';
+import { GET_PERSON_MOVIES, PERSON_MOVIES_ERROR, CLEAR_PERSON_MOVIES } from '../actions/types';
 
 const initialState = {
-    personMovies: null,
-    current: null,
-    loading: false,
+    movies: null,
+    loading: true,
     error: null
 }
 
@@ -12,21 +11,23 @@ export default (state = initialState, action) => {
         case GET_PERSON_MOVIES:
             return{
                 ...state,
-                personMovies: action.payload,
-                loading: false
+                loading: false,
+                movies: action.payload,
             }
 
-        case SET_LOADING:
-            return {
+        case CLEAR_PERSON_MOVIES:
+            return{
                 ...state,
-                loading: true
+                loading: true,
+                movies: null
             }
 
-            case PERSON_MOVIES_ERROR:
-                return{
-                    ...state,
-                    error: action.payload
-                }
+        case PERSON_MOVIES_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default: 
             return state;

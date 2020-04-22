@@ -1,35 +1,35 @@
-import { GET_UPCOMING, UPCOMING_ERROR, SET_LOADING } from '../actions/types';
+import { GET_UPCOMING, UPCOMING_ERROR, GET_UPCOMING_CLEAR } from '../actions/types';
 
 const initialState = {
-    upcoming: null,
-    loading: false,
+    movies: null,
+    loading: true,
     error: null
 };
 
 export default (state = initialState, action) => {
     switch(action.type){
-        
         case GET_UPCOMING:
             return{
                 ...state,
-                upcoming: action.payload,
-                loading: false
+                loading: false,
+                movies: action.payload
             }
 
-            case SET_LOADING:
-                    return{
-                        ...state,
-                        loading: true
-                }
+        case GET_UPCOMING_CLEAR:
+            return{
+                ...state,
+                loading: true,
+                movies: null
+            }
 
-            case UPCOMING_ERROR:
-                console.log(action.payload);
-                return{
-                    ...state,
-                    error: action.payload
-                }
+        case UPCOMING_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default:
             return state;
     }
-}
+};

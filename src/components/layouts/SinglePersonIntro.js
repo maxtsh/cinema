@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import imageLoader from '../../images/imageLoading.gif';
+import imageLoader from '../../images/loader.gif';
 
 const SinglePersonIntro = (props) => {
     const { person } = props;
@@ -42,19 +42,25 @@ const SinglePersonIntro = (props) => {
     const deathStyle = person.deathday !== null ? {backgroundColor: 'red', padding: '0 0.4rem', borderRadius: "0.5rem"} : null;
 
     return (
-        <div className="movie-intro-main col-md-12">
-            <div className="single-movie-poster">
-                {!isLoaded ? (
-                    <img className='poster' src={imageLoader} alt="movie_poster" />
-                ) : null}
+        <div className="main-intro-wrapper">
+
+            {/* If the poster is not yet loaded, show the loader */}
+            {!isLoaded ? (
+                <div className="main-intro-poster-loader">
+                    <img src={imageLoader} alt="loader" />
+                </div>
+            ) : null }
+
+            <div className="main-intro-poster">
                 <img 
                     onLoad={() => setLoaded(true)} 
                     src={profileUrl} 
                     style={!isLoaded ? { display: 'none' } : {}}
-                    alt=""
-                    />
+                    alt="movie_poster"
+                />
             </div>
-            <div className="single-movie-intro-details">
+
+            <div className="main-intro-details">
                 <h2>{person.name}</h2>
                 <p>Career: {person.known_for_department}</p>
                 <p>

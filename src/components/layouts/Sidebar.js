@@ -3,6 +3,9 @@ import Genres from './Genres';
 import { Link } from 'react-router-dom';
 
 const Sidebar = (props) => {
+
+    console.log("SIDEBAR");
+
     const currentPage = props.thePage;
     const popularClass = currentPage === "Popular" ? "main-categories current-link" : "main-categories";
     const topRatedClass = currentPage === "topRated" ? "main-categories current-link" : "main-categories";
@@ -11,7 +14,6 @@ const Sidebar = (props) => {
 
     return (
         <div className="sidebar-main">
-            <h2><Link to="/"><i className="fas fa-couch"></i> Your Cenema</Link></h2>
             <div className="logo-container">
                 <img className="logo" src={require('../../images/tmdb-powered.png')} alt="Logo"/>
             </div>
@@ -37,6 +39,5 @@ const Sidebar = (props) => {
             <Genres genrePage={props.thePage} />
         </div>
     )
-}
-
-export default Sidebar;
+};
+export default React.memo(Sidebar);

@@ -1,9 +1,8 @@
-import { GET_MOVIE_VIDEOS, MOVIE_VIDEOS_ERROR, SET_LOADING } from '../actions/types';
+import { GET_MOVIE_VIDEOS, MOVIE_VIDEOS_ERROR, CLEAR_MOVIE_VIDEOS } from '../actions/types';
 
 const initialState = {
-    movieVideos: null,
-    current: null,
-    loading: false,
+    videos: null,
+    loading: true,
     error: null
 }
 
@@ -12,24 +11,23 @@ export default (state = initialState, action) => {
         case GET_MOVIE_VIDEOS:
             return{
                 ...state,
-                movieVideos: action.payload,
-                loading: false
+                loading: false,
+                videos: action.payload
             }
-
-        case SET_LOADING:
-            return {
+        case CLEAR_MOVIE_VIDEOS:
+            return{
                 ...state,
-                loading: true
+                loading: true,
+                vidoes: null
             }
-
-            case MOVIE_VIDEOS_ERROR:
-                console.log(action.payload);
-                return{
-                    ...state,
-                    error: action.payload
-                }
+        case MOVIE_VIDEOS_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default: 
             return state;
     }
-}
+};

@@ -1,35 +1,35 @@
-import { GET_MOVIE_BY_GENRE, MOVIE_BY_GENRE_ERROR, SET_LOADING } from '../actions/types';
+import { GET_MOVIE_BY_GENRE, MOVIE_BY_GENRE_CLEAR, MOVIE_BY_GENRE_ERROR } from '../actions/types';
 
 const initialState = {
-    movieByGenre: null,
-    current: null,
-    loading: false,
+    movies: null,
+    loading: true,
     error: null
-}
+};
 
 export default (state = initialState, action) => {
     switch(action.type){
         case GET_MOVIE_BY_GENRE:
             return{
                 ...state,
-                movieByGenre: action.payload,
-                loading: false
+                loading: false,
+                movies: action.payload,
             }
 
-        case SET_LOADING:
-            return {
+        case MOVIE_BY_GENRE_CLEAR:
+            return{
                 ...state,
-                loading: true
+                loading: true,
+                movies: null
             }
 
-            case MOVIE_BY_GENRE_ERROR:
-                console.log(action.payload);
-                return{
-                    ...state,
-                    error: action.payload
-                }
+        case MOVIE_BY_GENRE_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default: 
             return state;
     }
-}
+};

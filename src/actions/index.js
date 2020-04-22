@@ -7,34 +7,39 @@ const API_KEY = "cc25769ebc0d413cd50cc747c2148567";
 const LANG = "language=en-US";
 const ADULT = "include_adult=false";
 
-// Get Populars
-export const getLogs = (currentPage) => async (dispatch) => { // Higher Order Function Method
+// Populars =======================================================================
+export const getPopulars = async (dispatch, currentPage) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}discover/movie?api_key=${API_KEY}&${LANG}&sort_by=popularity.desc&${ADULT}&include_video=false&page=${currentPage}`;
 
         const response = await axios.get(url);
+
         dispatch({
-            type: TYPES.GET_LOGS,
+            type: TYPES.GET_POPULARS,
             payload: response.data
         });
+
     } catch (error) {
         dispatch({
-            type: TYPES.LOGS_ERROR,
-            payload: error.response.statusText
+            type: TYPES.GET_POPULARS_ERROR,
+            payload: error.response
         });
     }
 };
+export const clearPopulars = (dispatch) => {
+    dispatch({
+        type: TYPES.GET_POPULARS_CLEAR
+    });
+};
+// ==========================================================================================
 
-// Get Geners
-export const getGenres = () => async (dispatch) => {
+
+// Geners ===================================================================================
+export const getGenres = async (dispatch) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}genre/movie/list?api_key=${API_KEY}&${LANG}`;
-
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_GENRES,
             payload: response.data
@@ -47,19 +52,25 @@ export const getGenres = () => async (dispatch) => {
         });
     }
 };
+export const clearGenres = (dispatch) => {
+    dispatch({
+        type: TYPES.GET_GENRES_CLEAR
+    });
+};
+// ==============================================================================================
 
-// Get Top Rated
-export const getTopRated = (currentPage) => async (dispatch) => {
+
+// Top Rated =======================================================================================
+export const getTopRated = async (dispatch, currentPage) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}movie/top_rated?api_key=${API_KEY}&${LANG}&page=${currentPage}`;
-
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_TOP_RATED,
             payload: response.data
         });
+
     } catch (error) {
         dispatch({
             type: TYPES.TOP_RATED_ERROR,
@@ -67,39 +78,50 @@ export const getTopRated = (currentPage) => async (dispatch) => {
         });
     }
 };
+export const clearTopRated = (dispatch) => {
+    dispatch({
+        type: TYPES.GET_TOP_RATED_CLEAR
+    });
+};
+//==============================================================================================
 
-// Get Upcoming
-export const getUpcoming = (currentPage) => async (dispatch) => {
+
+// Upcoming ==================================================================================
+export const getUpcoming = async (dispatch, currentPage) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}movie/upcoming?api_key=${API_KEY}&${LANG}&page=${currentPage}`;
-
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_UPCOMING,
             payload: response.data
         });
-    } catch (error) {
+    }catch (error) {
         dispatch({
             type: TYPES.UPCOMING_ERROR,
             payload: error
         });
     }
 };
+export const clearUpcoming = (dispatch) => {
+    dispatch({
+        type: TYPES.GET_UPCOMING_CLEAR
+    });
+};
+//  =================================================================================
 
-// Get NOW Playing
-export const getNowPlaying = (currentPage) => async (dispatch) => {
+
+// NOW Playing ==========================================================================
+export const getNowPlaying = async (dispatch, currentPage) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}movie/now_playing?api_key=${API_KEY}&${LANG}&page=${currentPage}`;
-
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_NOW_PLAYING,
             payload: response.data
         });
+
     } catch (error){
         dispatch({
             type: TYPES.NOW_PLAYING_ERROR,
@@ -107,34 +129,49 @@ export const getNowPlaying = (currentPage) => async (dispatch) => {
         });
     }
 };
+// Clearing Now playing movies
+export const clearNowPlaying = (dispatch) => {
+    dispatch({
+        type: TYPES.GET_NOW_PLAYING_CLEAR
+    });
+};
+// =============================================================================================
 
-export const getMovieByGenre = (currentPage, genreId, sortBy) => async (dispatch) => {
+
+// Movie By Genres ==========================================================================
+export const getMovieByGenre = async (dispatch, currentPage, genreId, sortBy) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}discover/movie?api_key=${API_KEY}&${LANG}&sort_by=${sortBy}&with_genres=${genreId}&${ADULT}&include_video=false&page=${currentPage}`
 
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_MOVIE_BY_GENRE,
             payload: response.data
         });
 
-    } catch(error){
+    }catch(error){
         dispatch({
             type: TYPES.MOVIE_BY_GENRE_ERROR,
-            payload: error
+            payload: error.response
         });
     }
 };
 
-export const getMovie = (movieId) => async (dispatch) => {
+export const clearMovieByGenre = (dispatch) => {
+    dispatch({
+        type: TYPES.MOVIE_BY_GENRE_CLEAR
+    });
+};
+// =============================================================================================
+
+
+// MOVIE =======================================================================================
+export const getMovie = async (dispatch, movieId) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}movie/${movieId}?api_key=${API_KEY}&${LANG}`;
-
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_MOVIE,
             payload: response.data
@@ -147,13 +184,18 @@ export const getMovie = (movieId) => async (dispatch) => {
         });
     }
 };
+export const clearGetMovie = (dispatch) => {
+    dispatch({
+        type: TYPES.GET_MOVIE_CLEAR
+    });
+};
+// ===============================================================================================
 
-export const getMovieCast = (movieId) => async (dispatch) => {
+
+// MOVIE CAST ============================================================================================
+export const getMovieCast = async (dispatch, movieId) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
-
         const response = await axios.get(url);
         dispatch({
             type: TYPES.GET_MOVIE_CAST,
@@ -166,11 +208,16 @@ export const getMovieCast = (movieId) => async (dispatch) => {
             payload: error
         });
     }
-}
+};
+export const clearMovieCast = (dispatch) => {
+    dispatch({
+        type: TYPES.CLEAR_MOVIE_CAST
+    })
+};
+//  ==============================================================================================
 
 export const getMovieSearch = (page, searchValue) => async (dispatch) => {
     try{
-        setLoading();
 
         const url = `${BASE_URL}search/movie?api_key=${API_KEY}&${LANG}&page=${page}&${ADULT}&query=${searchValue}`;
 
@@ -188,13 +235,12 @@ export const getMovieSearch = (page, searchValue) => async (dispatch) => {
     }
 }
 
-export const getMovieVideos = (movieId) => async (dispatch) => {
+// Movie Trailers ============================================================================================
+export const getMovieVideos = async (dispatch, movieId) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}movie/${movieId}/videos?api_key=${API_KEY}&${LANG}`;
-
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_MOVIE_VIDEOS,
             payload: response.data
@@ -207,15 +253,20 @@ export const getMovieVideos = (movieId) => async (dispatch) => {
         });
     }
 }
+export const clearMovieVideos = (dispatch) => {
+    dispatch({
+        type: TYPES.CLEAR_MOVIE_VIDEOS
+    });
+};
+// ==============================================================================================
 
 
-export const getPerson = (personId) => async (dispatch) => {
+// Person ==============================================================================================
+export const getPerson = async (dispatch, personId) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}person/${personId}?api_key=${API_KEY}&${LANG}`;
-
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_PERSON,
             payload: response.data
@@ -227,16 +278,20 @@ export const getPerson = (personId) => async (dispatch) => {
             payload: error
         });
     }
-}
+};
+export const clearGetPerson = (dispatch) => {
+    dispatch({
+        type: TYPES.GET_PERSON_CLEAR
+    });
+};
+// =====================================================================================================
 
-
-export const getRecommendedMovies = (movieId, page) => async (dispatch) => {
+// Recommended Movies =================================================================================
+export const getRecommendedMovies = async (dispatch, movieId, page) => {
     try{
-        setLoading();
-
         const url = `${BASE_URL}movie/${movieId}/recommendations?api_key=${API_KEY}&${LANG}&page=${page}`;
-
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_RECOMMENDED_MOVIES,
             payload: response.data
@@ -249,31 +304,36 @@ export const getRecommendedMovies = (movieId, page) => async (dispatch) => {
         });
     }
 }
+export const clearRecommendedMovies = (dispatch) => {
+    dispatch({
+        type: TYPES.CLEAR_RECOMMENDED_MOVIES
+    });
+};
+//=====================================================================================================
 
-export const getPersonMovies = (currentPage, personId) => async (dispatch) => { 
+
+// Movies For Single Person =======================================================================
+export const getPersonMovies = async (dispatch, currentPage, personId) => { 
     try{
-        setLoading();
-
         const url = `${BASE_URL}discover/movie?api_key=${API_KEY}&${LANG}&sort_by=popularity.desc&${ADULT}&include_video=false&page=${currentPage}&with_cast=${personId}`;
 
         const response = await axios.get(url);
+
         dispatch({
             type: TYPES.GET_PERSON_MOVIES,
             payload: response.data
         });
+
     } catch (error) {
         dispatch({
             type: TYPES.PERSON_MOVIES_ERROR,
-            payload: error.response.statusText
+            payload: error.response
         });
     }
 };
-
-
-
-// Set Loading to TRUE
-export const setLoading = () => {
-    return {
-        type: TYPES.SET_LOADING
-    };
+export const clearPersonMovies = (dispatch) => {
+    dispatch({
+        type: TYPES.CLEAR_PERSON_MOVIES
+    });
 };
+// ==================================================================================================

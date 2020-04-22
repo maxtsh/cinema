@@ -1,50 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getLogs } from '../../actions/index'; // Our Action is in the props
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPopulars, clearPopulars } from '../../actions/index';
 import { Link } from 'react-router-dom';
-import LazyLoad from 'react-lazyload';
 
-import MainMenu from '../layouts/MainMenu';
+import Header from '../layouts/Header';
 import Sidebar from '../layouts/Sidebar';
 import MovieBox from '../layouts/MovieBox';
 import Pagination from '../layouts/Pagination';
 import Loader from '../layouts/Loader';
 
-const Discover = (props) => {
+const Discover = () => {
+    const populars = useSelector(state => state.populars);
+    const dispatch = useDispatch();
 
-    const { getLogs, log } = props; // We Must pull the action out of props
+    console.log("DISCOVER RENDER");
+
     const [currentPage, setCurrentPage] = useState(1);
-    const [loaded, setLoaded] = useState(false);
 
      useEffect( () => {
-        getLogs(currentPage);
-        setLoaded(false);
+        getPopulars(dispatch, currentPage);
 
-        setTimeout(() => {
-            setLoaded(true);
-        }, 500)
-        // eslint-disable-next-line
-    }, [currentPage]);
+        return () => clearPopulars(dispatch);
+    }, [dispatch, currentPage]);
 
-    const changePage = (page) => {
-        setCurrentPage(page);
-    };
+    const changePage = useCallback((page) => {setCurrentPage(page)}, [setCurrentPage]);
 
-    if(log.logs === null || log.loading === true || !loaded){
-
+    if(populars.movies === null || populars.loading === true){
         return(
             <div style={{ textAlign: "center" }} className="container">
                 <Loader />
             </div>
         )
-
     }
-
-    const { results, total_results, total_pages } = log.logs;
-
+    const { results, total_results, total_pages } = populars.movies;
     return (
-        <LazyLoad height={200} offset={200}>
-            <MainMenu />
+            <React.Fragment>
+            <Header />
             <div className="page">
                 <div className="sidebar">
                     <Sidebar thePage={"Popular"} />
@@ -73,12 +64,7 @@ const Discover = (props) => {
                     </div>
                 </div>
             </div>
-        </LazyLoad>
+        </React.Fragment>
     )
-
 }
-
-const mapStateToProps = (state) => ({
-    log: state.log
-});
-export default connect(mapStateToProps, { getLogs })(Discover);
+export default Discover;

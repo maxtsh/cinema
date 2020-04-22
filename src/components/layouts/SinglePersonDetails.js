@@ -14,20 +14,17 @@ const SingleMovieDetails = (props) => {
         });
     }
 
-    
     return (
-        <div className="movie-details">
-            <div className="overview col-lg-8">
+        <div className="main-details-wrapper">
+            <div className="overview">
                 <h1>Biography:</h1>
                 <div>{biography}</div>
             </div>
-            <div className="details col-lg-4">
+            <div className="details">
                 <ul>
                     <li><i className="fas fa-id-card-alt"></i> Name: <span>{person.name}</span></li>
                     <li><i className="fas fa-birthday-cake"></i> Date of birth: <span>{person.birthday}</span></li>
-                    
                     {deathDay}
-
                     <li><i className="fas fa-star-half-alt"></i> Popularity: <span>{person.popularity}%</span> </li>
                     <li><i className="fas fa-globe-americas"></i> Born in: <span>{person.place_of_birth}</span></li>
 
@@ -36,5 +33,4 @@ const SingleMovieDetails = (props) => {
         </div>
     )
 }
-
-export default SingleMovieDetails;
+export default React.memo(SingleMovieDetails);

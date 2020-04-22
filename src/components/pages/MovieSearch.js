@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getMovieSearch } from '../../actions/index'; // Our Action is in the props
 import { Link } from 'react-router-dom';
 
-import MainMenu from '../layouts/MainMenu';
+import Header from '../layouts/Header';
 import Sidebar from '../layouts/Sidebar';
 import MovieBox from '../layouts/MovieBox';
 import Pagination from '../layouts/Pagination';
@@ -42,7 +42,7 @@ const MovieSearch = (props) => {
 
         return (
             <Fragment>
-                <MainMenu />
+                <Header />
                 <div className="page">
                     <div className="sidebar">
                         <Sidebar />

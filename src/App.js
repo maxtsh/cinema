@@ -1,8 +1,11 @@
 import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+// REDUX
 import { Provider } from 'react-redux';
 import store from './store';
 
+// import Home from './components/pages/Home';
 import Home from './components/pages/Home';
 import Discover from './components/pages/Discover';
 import TopRated from './components/pages/TopRated';

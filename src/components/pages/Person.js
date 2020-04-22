@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getPerson } from '../../actions/index';
-import LazyLoad from 'react-lazyload';
+import React, { useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getPerson, clearGetPerson } from '../../actions/index';
 
 import Header from '../layouts/Header';
 import Footer from '../layouts/Footer';
@@ -12,61 +12,50 @@ import PersonMovies from '../layouts/PersonMovies';
 import backGround from '../../images/backgrounds/person_background.jpg';
 
 const Person = (props) => {
-    const { getPerson, person } = props;
+    const person = useSelector(state => state.person);
+    const dispatch = useDispatch();
     const personId = props.match.params.id;
-    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        getPerson(personId);
-
-        setTimeout(() => {
-            setLoaded(true);
-        }, 700);
+        getPerson(dispatch, personId);
         
-        // eslint-disable-next-line
-    }, [personId]);
+        return () => clearGetPerson(dispatch);
+    }, [dispatch, personId]);
+    
 
-    if(person.person === null || person.loading === true || !loaded){
-
+    if(person.person === null || person.loading){
         return(
             <div style={{ textAlign: "center" }} className="container">
                 <Loader />
             </div>
         )
-
-    }else{
-        const style = { backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.6) 3%, rgba(0,0,0,0.8) 50%), url(${backGround})`};
-
-        return (
-            <LazyLoad height={200} offset={200}>
-                <div className="single-movie">
-                    <div className="movie-header" style={style}>
-                        <Header />
-                    </div>
-                    <section className="movie-intro">
-                        <div className="container">
-                            <SinglePersonIntro person={person.person} />
-                        </div>
-                    </section>
-                    <section className="movie-main-details">
-                        <div className="container">
-                            
-                            <SinglePersonDetails person={person.person} />
-
-                            <h1>Related Movies: </h1>
-                            <PersonMovies personId={personId} />
-                            
-                        </div>
-                    </section>
-                </div>
-                <Footer />
-            </LazyLoad>
-        )
     }
-}
+    
+    const style = { 
+        backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.6) 3%, rgba(0,0,0,0.8) 50%), url(${backGround})`
+    };
+    
+    return (
+        <React.Fragment>
+            <Header />
+            <div className="main-container">
+                <div className="main-header" style={style}></div>
+                <div className="container">
 
-const mapStateToProps = (state) => ({
-    person: state.person,
-});
+                    <div className="main-intro">
+                        <SinglePersonIntro person={person.person} />
+                    </div>
 
-export default connect(mapStateToProps, { getPerson })(Person);
+                    <div className="main-details">
+                        <SinglePersonDetails person={person.person} />
+                        <h2>Related Movies: </h2>
+                        <PersonMovies personId={personId} />
+                    </div>
+
+                </div>
+            </div>
+            <Footer />
+        </React.Fragment>
+    )
+};
+export default Person;

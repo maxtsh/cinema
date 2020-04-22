@@ -1,35 +1,35 @@
-import { GET_NOW_PLAYING, NOW_PLAYING_ERROR, SET_LOADING } from '../actions/types';
+import { GET_NOW_PLAYING, NOW_PLAYING_ERROR, GET_NOW_PLAYING_CLEAR } from '../actions/types';
 
 const initialState = {
-    nowPlaying: null,
-    loading: false,
+    movies: null,
+    loading: true,
     error: null
 };
 
 export default (state = initialState, action) => {
     switch(action.type){
-        
         case GET_NOW_PLAYING:
             return{
                 ...state,
-                nowPlaying: action.payload,
-                loading: false
+                loading: false,
+                movies: action.payload,
             }
 
-            case SET_LOADING:
-                    return{
-                        ...state,
-                        loading: true
-                }
+        case GET_NOW_PLAYING_CLEAR:
+            return{
+                ...state,
+                loading: true,
+                movies: null
+            }
 
-            case NOW_PLAYING_ERROR:
-                console.log(action.payload);
-                return{
-                    ...state,
-                    error: action.payload
-                }
+        case NOW_PLAYING_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default:
             return state;
     }
-}
+};

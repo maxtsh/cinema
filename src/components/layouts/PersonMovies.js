@@ -1,38 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getPersonMovies } from '../../actions/index';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getPersonMovies, clearPersonMovies } from '../../actions/index';
+
 import MovieBox from './MovieBox';
 import Pagination from './Pagination';
-import Loader from './Loader';
 
-export const PersonMovies = (props) => {
-    const { personId, getPersonMovies, personMovies } = props;
-    const persMovies = personMovies.personMovies;
+export const PersonMovies = ({ personId }) => {
+    const personMovies = useSelector(state => state.personMovies);
+    const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        getPersonMovies(currentPage, personId);
+        getPersonMovies(dispatch, currentPage, personId);
 
+        return () => clearPersonMovies(dispatch);
         // eslint-disable-next-line
-    }, [personId, currentPage]);
+    }, [dispatch, personId, currentPage]);
 
-    const changePage = (page) => {
-        setCurrentPage(page);
-    };
+    const changePage = useCallback(page => setCurrentPage(page), [setCurrentPage]);
 
-    if( persMovies === null || persMovies === true){
-
-        return(
-            <div style={{ textAlign: "center" }} className="container">
-                <Loader />
-            </div>
-        )
-
+    if(personMovies.movies === null || personMovies.loading){
+        return null;
     }
 
-    const { results, total_results, total_pages } = persMovies;
+    const { results, total_results, total_pages } = personMovies.movies;
     const style = { gridTemplateColumns: "repeat(auto-fill, minmax(12rem, 1fr))" };
+
     return (
         <div className="discover-container">
             <div className="home-page">
@@ -58,8 +53,4 @@ export const PersonMovies = (props) => {
         </div>
     )
 }
-
-const mapStateToProps = (state) => ({
-    personMovies: state.personMovies
-});
-export default connect(mapStateToProps, { getPersonMovies })(PersonMovies);
+export default React.memo(PersonMovies);

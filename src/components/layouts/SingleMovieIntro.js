@@ -1,48 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getMovieVideos } from '../../actions/index';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import imageLoader from '../../images/loader.gif';
+import noImagePL from '../../images/no_image.svg';
+
 import StarRatings from 'react-star-ratings';
 import ModalVideo from 'react-modal-video';
-import Loader from './Loader';
 import { isNumber } from 'util';
-import imageLoader from '../../images/imageLoading.gif';
 
-const SingleMovieIntro = (props) => {
-
-    const { movie, getMovieVideos, movieVideos } = props;
+const SingleMovieIntro = ({ movieVideos, movie }) => {
     const movieTagline = movie.tagline;;
     const imdbUrl = `//www.imdb.com/title/${movie.imdb_id}`;
 
     let webLink = "";
     if(movie.homepage === null || movie.homepage === undefined || movie.homepage === ""){
-
         webLink = "#";
-
     }else if(movie.homepage.split("")[4] === "s"){
-
         webLink = `//${movie.homepage.split("").splice(8).join("")}`;
     }else{
-        
         webLink = `//${movie.homepage.split("").splice(7).join("")}`;
     }
 
-    const posterUrl = `https://image.tmdb.org/t/p/w780/${movie.poster_path}`;
+
+
+    const noPoster = movie.poster_path === "" || movie.poster_path === null || movie.poster_path === undefined;
+    let posterUrl = "";
+    if(noPoster){
+        posterUrl = noImagePL;
+    }else{
+        posterUrl = `https://image.tmdb.org/t/p/w780/${movie.poster_path}`;
+    }
+
+
+
+
     const movieGenres = movie.genres.map((genre) => `${genre.name}, `);
     const [isOpen, setOpen] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        getMovieVideos(movie.id);
-
         return () => setLoaded(false);
-        // eslint-disable-next-line
-    }, [movie.id]);
+    }, []);
 
-    const handleClick = (e) => {
+    const handleClick = useCallback(e => {
         e.preventDefault();
         setOpen(true);
-    }
+    },[setOpen]);
 
     let movieScore = "";
     if(movie.vote_average === 0){
@@ -57,34 +59,39 @@ const SingleMovieIntro = (props) => {
     }else{
         movieRuntime = movie.runtime;
     }
-
-    if( movieVideos.movieVideos === null || movieVideos.loading === true){
-        return(
-            <div style={{ textAlign: "center" }} className="container">
-                <Loader />
-            </div>
-        )
+    
+    let videoId = "";
+    if(movieVideos.results[0] === undefined){
+        videoId = null;
+    }else{
+        videoId =  movieVideos.results[0].key;
     }
-        let videoId = "";
-        if(movieVideos.movieVideos.results[0] === undefined){
-            videoId = null;
-        }else{
-            videoId =  movieVideos.movieVideos.results[0].key;
-        }
        
     return (
-        <div className="movie-intro-main ">
-            <div className="single-movie-poster">
-                {!isLoaded ? (
-                <img className='poster' src={imageLoader} alt="movie_poster" />
-                ) : null}
-                <img 
-                onLoad={() => setLoaded(true)} 
-                src={posterUrl} 
-                style={!isLoaded ? { display: 'none' } : {}}
-                alt="movie_poster"/>
-            </div>
-            <div className="single-movie-intro-details">
+        <div className="main-intro-wrapper ">
+            {noPoster ? (
+                <img className="blank-image"  src={noImagePL} alt="Sorry, no poster available" />
+            ): (
+                <React.Fragment>
+                    {/* If the poster is not yet loaded, show the loader */}
+                    {!isLoaded ? (
+                        <div className="main-intro-poster-loader">
+                            <img src={imageLoader} alt="loader" />
+                        </div>
+                    ) : null }
+
+                    <div className="main-intro-poster">
+                        <img 
+                            onLoad={() => setLoaded(true)} 
+                            src={posterUrl} 
+                            style={!isLoaded ? { display: 'none' } : {}}
+                            alt="movie_poster"
+                        />
+                    </div>
+                </React.Fragment>
+            )}
+
+            <div className="main-intro-details">
                 <h2>{movie.title}</h2>
                 <p>{movieTagline}</p>
                 <p>
@@ -101,9 +108,7 @@ const SingleMovieIntro = (props) => {
                         starRatedColor="#f5c518"
                         starSpacing="2px"
                     />
-                    <p>
-                        {movieScore}
-                    </p>
+                    {movieScore}
                     
                 </div>
                 <p>Status: {movie.status}</p>
@@ -127,9 +132,5 @@ const SingleMovieIntro = (props) => {
             </div>
         </div>
     )
-}
-
-const mapStateToProps = (state) => ({
-    movieVideos: state.movieVideos
-});
-export default connect(mapStateToProps, { getMovieVideos })(SingleMovieIntro);
+};
+export default React.memo(SingleMovieIntro);

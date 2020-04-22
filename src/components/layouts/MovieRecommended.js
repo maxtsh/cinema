@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getRecommendedMovies } from '../../actions/index';
+// import Loader from '../../images/new_loader.gif';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getRecommendedMovies, clearRecommendedMovies } from '../../actions/index';
+
 import MovieBox from './MovieBox';
 import Pagination from './Pagination';
-import Loader from './Loader';
 
-export const MovieRecommended = (props) => {
-    const { movieId, getRecommendedMovies, recommendedMovies } = props;
-    const recMovies = recommendedMovies.recommendedMovies;
+export const MovieRecommended = ({ movieId }) => {
+    const recommendedMovies = useSelector(state => state.recommendedMovies);
+    const dispatch = useDispatch();
+
+    const recMovies = recommendedMovies.movies;
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        getRecommendedMovies(movieId, currentPage);
+        getRecommendedMovies(dispatch, movieId, currentPage);
 
-        // eslint-disable-next-line
-    }, [movieId, currentPage]);
+        return () => clearRecommendedMovies(dispatch);
+    }, [dispatch, movieId, currentPage]);
 
-    const changePage = (page) => {
-        setCurrentPage(page);
-    };
+    const changePage = useCallback(page => setCurrentPage(page), [setCurrentPage]);
 
-    if( recMovies === null || recMovies === true){
-
-        return(
-            <div style={{ textAlign: "center" }} className="container">
-                <Loader />
+    if( recMovies === null || recMovies.loading){
+        return (
+            <div className="discover-container">
+                {/* <Loader /> */}
             </div>
         )
-
     }
 
     const { results, total_results, total_pages } = recMovies;
@@ -36,37 +36,33 @@ export const MovieRecommended = (props) => {
 
     if(results.length === 0){
         return(
-            <h4>No Recommendation Available!</h4>
-        )
-    }else{
-        return (
-            <div className="discover-container">
-                <div className="home-page">
-                    <div style={style} className="movies-list">
-                        {results.map( (result) => (
-                            <Link 
-                                className="single-movie-link" 
-                                key={result.id} 
-                                to={`/movie/${result.id}`}
-                                >
-                                <MovieBox movie={result} />
-                            </Link>
-                        ))}
-                    </div>
-                    <Pagination 
-                        changePage={changePage} 
-                        currentPage={currentPage}
-                        moviesPerPage={20} 
-                        totalMovies={total_results}
-                        totalPages={total_pages}
-                    />
-                </div>
-            </div>
+            <h4 className="warning">Sorry, no recommendations available!</h4> 
         )
     }
-}
-
-const mapStateToProps = (state) => ({
-    recommendedMovies: state.recommendedMovies
-});
-export default connect(mapStateToProps, { getRecommendedMovies })(MovieRecommended);
+    
+    return (
+        <div className="discover-container">
+            <div className="home-page">
+                <div style={style} className="movies-list">
+                    {results.map( (result) => (
+                        <Link 
+                            className="single-movie-link" 
+                            key={result.id} 
+                            to={`/movie/${result.id}`}
+                            >
+                            <MovieBox movie={result} />
+                        </Link>
+                    ))}
+                </div>
+                <Pagination 
+                    changePage={changePage} 
+                    currentPage={currentPage}
+                    moviesPerPage={20} 
+                    totalMovies={total_results}
+                    totalPages={total_pages}
+                />
+            </div>
+        </div>
+    )
+};
+export default React.memo(MovieRecommended);

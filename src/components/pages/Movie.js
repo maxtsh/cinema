@@ -1,91 +1,99 @@
-import React, { useEffect, useState} from 'react';
-import LazyLoad from 'react-lazyload';
-import { connect } from 'react-redux';
-import { getMovie, getMovieCast } from '../../actions/index';
+import React, { useEffect} from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { 
+    getMovie, 
+    clearGetMovie, 
+    getMovieCast, 
+    clearMovieCast, 
+    getMovieVideos, 
+    clearMovieVideos } from '../../actions/index';
 
+import Header from '../layouts/Header';
+import Footer from '../layouts/Footer';
+import Loader from '../layouts/Loader';
 import SingleMovieIntro from '../layouts/SingleMovieIntro';
 import SingleMovieDetails from '../layouts/SingleMovieDetails';
 import SingleMovieCastBox from '../layouts/SingleMovieCastBox';
-import MovieRecommended from '../layouts/MovieRecommended';
-import Header from '../layouts/Header';
-import Footer from '../layouts/Footer';
 import SingleMovieCrewBox from '../layouts/SingleMovieCrewBox';
-import Loader from '../layouts/Loader';
+import MovieRecommended from '../layouts/MovieRecommended';
 
 const Movie = (props) => {
-    const { getMovie, getMovieCast, movie, movieCast } = props;
-    const movieId = props.match.params.id;
-    const [loaded, setLoaded] = useState(false);
+    console.log("MOVIE PAGE");
+    const movie = useSelector(state => state.movie);
+    const movieCast = useSelector(state => state.movieCast);
+    const movieVideos = useSelector(state => state.movieVideos);
+    const dispatch = useDispatch();
 
+    const movieId = props.match.params.id;
 
     useEffect(() => {
-        getMovie(movieId);
-        getMovieCast(movieId);
-        setLoaded(false);
-
-        const movieTimeOut = setTimeout(() => {
-            setLoaded(true);
-        }, 700);
+        getMovie(dispatch, movieId);
         
-        return () => clearTimeout(movieTimeOut);
-        // eslint-disable-next-line
-    }, [movieId]);
+        return () => clearGetMovie(dispatch);
+    }, [dispatch, movieId]);
 
+    useEffect(() => {
+        getMovieCast(dispatch, movieId);
 
-    if(movie.movie === null || movieCast.movieCast === null || !loaded){
+        return () => clearMovieCast(dispatch);
+    }, [dispatch, movieId]);
+
+    useEffect(() => {
+        getMovieVideos(dispatch, movieId);
+
+        return () => clearMovieVideos(dispatch);
+    }, [dispatch, movieId]);
+
+    if(movie.movie === null || movie.loading){
         return(
             <div style={{ textAlign: "center" }} className="container">
                 <Loader />
             </div>
         )
+    } 
 
-    }
-    // else{
-        
-        const style = { backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.6) 3%, rgba(0,0,0,0.8) 50%), url(https://image.tmdb.org/t/p/original/${movie.movie.backdrop_path})`};
-
-        const director = movieCast.movieCast.crew.filter( crew => crew.job === "Director");
-
-        return (
-            <LazyLoad height={200} offset={200}>
-                <div className="single-movie">
-                    <div className="movie-header" style={style}>
-                        <Header />
-                    </div>
-                    <section className="movie-intro">
-                        <div className="container">
-                            <SingleMovieIntro movie={movie.movie} />
-                        </div>
-                    </section>
-                    <section className="movie-main-details">
-                        <div className="container">
-                            
-                            <SingleMovieDetails director={director} movie={movie.movie} />
-
-                            <h1>Crew: </h1>
-                            <SingleMovieCrewBox crew={movieCast.movieCast.crew} />
-
-                            <hr/>
-
-                            <h1>Cast: </h1>
-                            <SingleMovieCastBox cast={movieCast.movieCast.cast} />
-
-                            <hr/>
-
-                            <h1>Recommendation: </h1>
-                            <MovieRecommended movieId={movieId} />
-                        </div>
-                    </section>
-                </div>
-                <Footer />
-            </LazyLoad>
+    if(movieCast.members === null || movieCast.loading){
+        return(
+            <div style={{ textAlign: "center" }} className="container">
+                <Loader />
+            </div>
         )
-    // }
-};
+    }
 
-const mapStateToProps = (state) => ({
-    movie: state.movie,
-    movieCast: state.movieCast
-});
-export default connect(mapStateToProps, { getMovie, getMovieCast })(Movie);
+    if(movieVideos.videos === null || movieVideos.loading){
+        return(
+            <div style={{ textAlign: "center" }} className="container">
+                <Loader />
+            </div>
+        )
+    }
+    
+    const style = { backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.6) 3%, rgba(0,0,0,0.8) 50%), url(https://image.tmdb.org/t/p/original/${movie.movie.backdrop_path})`};
+    const director = movieCast.members.crew.filter( crew => crew.job === "Director");
+    return (
+        <React.Fragment>
+            <Header />
+            <div className="main-container">
+                <div className="main-header" style={style}></div>
+                <div className="container">
+
+                    <div className="main-intro">
+                        <SingleMovieIntro movieVideos={movieVideos.videos} movie={movie.movie} />
+                    </div>
+
+                    <div className="main-details">
+                        <SingleMovieDetails director={director} movie={movie.movie} />
+                        <SingleMovieCrewBox crew={movieCast.members.crew} />
+                        <SingleMovieCastBox cast={movieCast.members.cast} />
+                        <h2>Recommendations</h2>
+                        <MovieRecommended movieId={movieId} />
+                    </div>
+                    
+                </div>
+            </div>
+            <Footer />
+        </React.Fragment>
+    )
+};
+export default Movie;

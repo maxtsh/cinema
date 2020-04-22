@@ -1,93 +1,79 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getMovieByGenre } from '../../actions/index'; // Our Action is in the props
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-import MainMenu from '../layouts/MainMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMovieByGenre, clearMovieByGenre } from '../../actions/index';
+
+import Header from '../layouts/Header';
 import Sidebar from '../layouts/Sidebar';
 import MovieBox from '../layouts/MovieBox';
 import Pagination from '../layouts/Pagination';
 import Loader from '../layouts/Loader';
 
 const MovieByGenre = (props) => {
+    const movieByGenre = useSelector(state => state.movieByGenre);
+    const dispatch = useDispatch();
 
-    const { getMovieByGenre, movieByGenre } = props;
     const [currentPage, setCurrentPage] = useState(1);
-    const [sortBy, setSoryBy] = useState("popularity.desc");
-    const [loaded, setloaded] = useState(false);
+    const [sortBy, setSortBy] = useState("popularity.desc");
+
     const genreId = props.match.params.id;
 
     useEffect( () => {
-        getMovieByGenre(currentPage, genreId, sortBy);
-        setloaded(false);
+        getMovieByGenre(dispatch, currentPage, genreId, sortBy);
 
-        setTimeout(() => {
-            setloaded(true);
-        }, 500);
+        return () => clearMovieByGenre(dispatch);
+    }, [dispatch, currentPage, genreId, sortBy]);
 
-        // eslint-disable-next-line
-    }, [currentPage, genreId, sortBy]);
+    const changePage = useCallback((page) => {setCurrentPage(page)}, [setCurrentPage]);
+    const handleChange = useCallback(e => {setSortBy(e.target.value)}, [setSortBy]);
 
-    const changePage = (page) => {
-        setCurrentPage(page);
-    };
-
-    const handleChange = (e) => {
-        setSoryBy(e.target.value);
-    }
-
-    if(movieByGenre.movieByGenre === null || movieByGenre.loading === true || !loaded){
+    if(movieByGenre.movies === null || movieByGenre.loading === true){
         return(
             <div style={{ textAlign: "center" }} className="container">
                 <Loader />
             </div>
         )
-    }else{
-        const { results, total_results, total_pages } = movieByGenre.movieByGenre;
-
-        return (
-            <Fragment>
-                <MainMenu />
-                <div className="page">
-                    <div className="sidebar">
-                        <Sidebar thePage={props.match.params.name} />
-                    </div>
-                    <div className="discover-container">
-                        <div className="home-page">
-                        <h2 className="page-title">Genre: {props.match.params.name}</h2>
-                        <select onChange={handleChange}>
-                            <option value="popularity.desc">Popularity</option>
-                            <option value="revenue.desc">Revenue</option>
-                            <option value="vote_average.desc">Vote Average</option>
-                            <option value="release_date.desc">Release Date</option>
-                        </select>
-                            <div className="movies-list">
-                                {results.map( (result) => (
-                                    <Link 
-                                        className="single-movie-link" 
-                                        key={result.id} 
-                                        to={`/movie/${result.id}`}
-                                        >
-                                        <MovieBox movie={result} />
-                                    </Link>
-                                ))}
-                            </div>
-                            <Pagination 
-                                changePage={changePage} 
-                                currentPage={currentPage}
-                                moviesPerPage={20} 
-                                totalMovies={total_results} 
-                                totalPages={total_pages}
-                                />
+    }
+    const { results, total_results, total_pages } = movieByGenre.movies;
+    return (
+        <React.Fragment>
+            <Header />
+            <div className="page">
+                <div className="sidebar">
+                    <Sidebar thePage={props.match.params.name} />
+                </div>
+                <div className="discover-container">
+                    <div className="home-page">
+                    <h2 className="page-title">Genre: {props.match.params.name}</h2>
+                    <select onChange={handleChange}>
+                        <option value="popularity.desc">Popularity</option>
+                        <option value="revenue.desc">Revenue</option>
+                        <option value="vote_average.desc">Vote Average</option>
+                        <option value="release_date.desc">Release Date</option>
+                    </select>
+                        <div className="movies-list">
+                            {results.map( (result) => (
+                                <Link 
+                                    className="single-movie-link" 
+                                    key={result.id} 
+                                    to={`/movie/${result.id}`}
+                                    >
+                                    <MovieBox movie={result} />
+                                </Link>
+                            ))}
                         </div>
+                        <Pagination 
+                            changePage={changePage} 
+                            currentPage={currentPage}
+                            moviesPerPage={20} 
+                            totalMovies={total_results} 
+                            totalPages={total_pages}
+                            />
                     </div>
                 </div>
-            </Fragment>
-        )
-    }
-}
-
-const mapStateToProps = (state) => ({
-    movieByGenre: state.movieByGenre,
-});
-export default connect(mapStateToProps, { getMovieByGenre })(MovieByGenre);
+            </div>
+        </React.Fragment>
+    )
+};
+export default MovieByGenre;

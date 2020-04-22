@@ -1,43 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getTopRated } from '../../actions/index';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import LazyLoad from 'react-lazyload';
 
-import MainMenu from '../layouts/MainMenu';
+import { useSelector, useDispatch } from 'react-redux';
+import { getTopRated, clearTopRated } from '../../actions/index';
+
+import Header from '../layouts/Header';
 import Sidebar from '../layouts/Sidebar';
 import MovieBox from '../layouts/MovieBox';
 import Pagination from '../layouts/Pagination';
 import Loader from '../layouts/Loader';
 
-const TopRated = (props) => {
-
-    const { getTopRated, topRated } = props;
+const TopRated = () => {
+    const topRated = useSelector(state => state.topRated);
+    const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect( () => {
-        getTopRated(currentPage);
+        getTopRated(dispatch, currentPage);
 
-        // eslint-disable-next-line
-    }, [currentPage]);
+        return () => clearTopRated(dispatch);
+    }, [dispatch, currentPage]);
 
-    const changePage = (page) => {
-        setCurrentPage(page);
-    };
+    const changePage = useCallback((page) => {setCurrentPage(page);}, [setCurrentPage]);
 
-    if(topRated.topRated === null){
-
+    if(topRated.movies === null || topRated.loading){
         return(
             <div style={{ textAlign: "center" }} className="container">
                 <Loader />
             </div>
         )
-
     }
-    const { results, total_results } = topRated.topRated;  
+    const { results, total_results } = topRated.movies;  
     return (
-        <LazyLoad height={200} offset={200}>
-            <MainMenu />
+        <React.Fragment>
+            <Header />
             <div className="page">
                 <div className="sidebar">
                     <Sidebar thePage={"topRated"} />
@@ -65,11 +61,7 @@ const TopRated = (props) => {
                     </div>
                 </div>
             </div>
-        </LazyLoad>
+        </React.Fragment>
     )
 }
-
-const mapStateToProps = (state) => ({
-    topRated: state.topRated
-});
-export default connect(mapStateToProps, { getTopRated })(TopRated);
+export default TopRated;

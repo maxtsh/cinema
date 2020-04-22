@@ -1,35 +1,35 @@
-import { GET_PERSON, GET_PERSON_CLEAR, PERSON_ERROR } from '../actions/types';
+import { GET_POPULARS, GET_POPULARS_ERROR, GET_POPULARS_CLEAR } from '../actions/types';
 
 const initialState = {
-    person: null,
+    movies: null,
     loading: true,
     error: null
 };
 
 export default (state = initialState, action) => {
     switch(action.type){
-        case GET_PERSON:
+        case GET_POPULARS:
             return{
                 ...state,
                 loading: false,
-                person: action.payload,
+                movies: action.payload,
             }
 
-        case GET_PERSON_CLEAR:
-            return{
+        case GET_POPULARS_CLEAR:
+            return {
                 ...state,
                 loading: true,
-                person: null
+                movies: null
             }
 
-        case PERSON_ERROR:
+        case GET_POPULARS_ERROR:
             return{
                 ...state,
                 loading: false,
                 error: action.payload
             }
 
-        default:
+        default: 
             return state;
     }
 };
