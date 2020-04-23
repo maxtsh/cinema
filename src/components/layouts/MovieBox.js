@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import noImagePL from '../../images/no_image.svg';
+import noImagePL from '../../images/poster_placeholder.png';
 import imageLoader from '../../images/loader.gif';
 
 const MovieBox = (props) => {
@@ -46,7 +46,6 @@ const MovieBox = (props) => {
             )}
 
             <div className="movie-info">
-                {noPoster ? (<h6>No poster available</h6>) : null}
                 <h5 className="movie-title">{movie.title}</h5>
                 <h5><i className="fas fa-star"></i>{movie.vote_average}</h5>
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import imageLoader from '../../images/loader.gif';
-import noImagePL from '../../images/no_image.svg';
+import noImagePL from '../../images/poster_placeholder.png';
 
 import StarRatings from 'react-star-ratings';
 import ModalVideo from 'react-modal-video';

@@ -26,11 +26,21 @@ export const PersonMovies = ({ personId }) => {
     }
 
     const { results, total_results, total_pages } = personMovies.movies;
+
+    console.log(results.length);
+
     const style = { gridTemplateColumns: "repeat(auto-fill, minmax(12rem, 1fr))" };
+
+    if(results.length === 0){
+        return(
+            <h4 className="warning">Sorry, no related movies available!</h4> 
+        )
+    }
 
     return (
         <div className="discover-container">
             <div className="home-page">
+            <h2>Related Movies: </h2>
                 <div style={style} className="movies-list">
                     {results.map( (result) => (
                         <Link 

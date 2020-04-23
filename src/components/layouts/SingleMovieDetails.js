@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import imageLoader from '../../images/loader.gif';
-import noImagePL from '../../images/no_image.svg';
+import noImagePL from '../../images/poster_placeholder.png';
 
 const SingleMovieDetails = (props) => {
     const { movie, director } = props;

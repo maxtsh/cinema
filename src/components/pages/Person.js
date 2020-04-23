@@ -48,7 +48,6 @@ const Person = (props) => {
 
                     <div className="main-details">
                         <SinglePersonDetails person={person.person} />
-                        <h2>Related Movies: </h2>
                         <PersonMovies personId={personId} />
                     </div>
 

@@ -7,7 +7,7 @@ const SingleMovieDetails = (props) => {
 
     let biography = "";
     if(person.biography === "" || person.biography === null){
-        biography = "Not available!";
+        biography = <h4 className="warning">Sorry, no biography available!</h4> ;
     }else{
         biography = person.biography.split(".").map((string, index) => {
             return <p key={index} > {string}. </p>;
