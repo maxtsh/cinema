@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/react-cinema-app/static/css/main.1b95cac0.chunk.css",
-    "main.js": "/react-cinema-app/static/js/main.18d0a150.chunk.js",
-    "main.js.map": "/react-cinema-app/static/js/main.18d0a150.chunk.js.map",
+    "main.js": "/react-cinema-app/static/js/main.e25e91e0.chunk.js",
+    "main.js.map": "/react-cinema-app/static/js/main.e25e91e0.chunk.js.map",
     "runtime-main.js": "/react-cinema-app/static/js/runtime-main.56387ee0.js",
     "runtime-main.js.map": "/react-cinema-app/static/js/runtime-main.56387ee0.js.map",
     "static/css/2.b271f14e.chunk.css": "/react-cinema-app/static/css/2.b271f14e.chunk.css",
-    "static/js/2.dc47415e.chunk.js": "/react-cinema-app/static/js/2.dc47415e.chunk.js",
-    "static/js/2.dc47415e.chunk.js.map": "/react-cinema-app/static/js/2.dc47415e.chunk.js.map",
+    "static/js/2.039fcdb1.chunk.js": "/react-cinema-app/static/js/2.039fcdb1.chunk.js",
+    "static/js/2.039fcdb1.chunk.js.map": "/react-cinema-app/static/js/2.039fcdb1.chunk.js.map",
     "index.html": "/react-cinema-app/index.html",
-    "precache-manifest.1353e57257ee9560a5f83ee635737dae.js": "/react-cinema-app/precache-manifest.1353e57257ee9560a5f83ee635737dae.js",
+    "precache-manifest.c7f13622f68b1dba14545515dac066bc.js": "/react-cinema-app/precache-manifest.c7f13622f68b1dba14545515dac066bc.js",
     "service-worker.js": "/react-cinema-app/service-worker.js",
     "static/css/2.b271f14e.chunk.css.map": "/react-cinema-app/static/css/2.b271f14e.chunk.css.map",
     "static/css/main.1b95cac0.chunk.css.map": "/react-cinema-app/static/css/main.1b95cac0.chunk.css.map",
-    "static/js/2.dc47415e.chunk.js.LICENSE.txt": "/react-cinema-app/static/js/2.dc47415e.chunk.js.LICENSE.txt",
+    "static/js/2.039fcdb1.chunk.js.LICENSE.txt": "/react-cinema-app/static/js/2.039fcdb1.chunk.js.LICENSE.txt",
     "static/media/avatar.png": "/react-cinema-app/static/media/avatar.f26323d4.png",
     "static/media/loader.gif": "/react-cinema-app/static/media/loader.2b02159f.gif",
     "static/media/person_background.jpg": "/react-cinema-app/static/media/person_background.daac33c8.jpg",
@@ -22,8 +22,8 @@
   "entrypoints": [
     "static/js/runtime-main.56387ee0.js",
     "static/css/2.b271f14e.chunk.css",
-    "static/js/2.dc47415e.chunk.js",
+    "static/js/2.039fcdb1.chunk.js",
     "static/css/main.1b95cac0.chunk.css",
-    "static/js/main.18d0a150.chunk.js"
+    "static/js/main.e25e91e0.chunk.js"
   ]
 }

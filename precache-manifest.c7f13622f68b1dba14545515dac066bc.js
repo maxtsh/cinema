@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cb1f668edef4edcfdd4c7f357053754a",
+    "revision": "6dc5425c8b69b50bbbe0900cd7c25e33",
     "url": "/react-cinema-app/index.html"
   },
   {
-    "revision": "e5e8eb8d81b9c2bab1b4",
+    "revision": "0a9e1e0b6e45b1d19f13",
     "url": "/react-cinema-app/static/css/2.b271f14e.chunk.css"
   },
   {
-    "revision": "2be6e5a2f0f49d87b53b",
+    "revision": "93e56d28f49cbcd7dabc",
     "url": "/react-cinema-app/static/css/main.1b95cac0.chunk.css"
   },
   {
-    "revision": "e5e8eb8d81b9c2bab1b4",
-    "url": "/react-cinema-app/static/js/2.dc47415e.chunk.js"
+    "revision": "0a9e1e0b6e45b1d19f13",
+    "url": "/react-cinema-app/static/js/2.039fcdb1.chunk.js"
   },
   {
     "revision": "a5da5d53dfba093fa63375799ffeddd6",
-    "url": "/react-cinema-app/static/js/2.dc47415e.chunk.js.LICENSE.txt"
+    "url": "/react-cinema-app/static/js/2.039fcdb1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2be6e5a2f0f49d87b53b",
-    "url": "/react-cinema-app/static/js/main.18d0a150.chunk.js"
+    "revision": "93e56d28f49cbcd7dabc",
+    "url": "/react-cinema-app/static/js/main.e25e91e0.chunk.js"
   },
   {
     "revision": "d3c4beb9b86c42bd9058",
