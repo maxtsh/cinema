@@ -1,27 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.4d300875.chunk.css",
-    "main.js": "/static/js/main.3dd6a606.chunk.js",
-    "main.js.map": "/static/js/main.3dd6a606.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.cc6a8102.js",
-    "runtime-main.js.map": "/static/js/runtime-main.cc6a8102.js.map",
-    "static/css/2.3c2621cf.chunk.css": "/static/css/2.3c2621cf.chunk.css",
-    "static/js/2.51fe37a1.chunk.js": "/static/js/2.51fe37a1.chunk.js",
-    "static/js/2.51fe37a1.chunk.js.map": "/static/js/2.51fe37a1.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.3f84ba70f18e819bc1a87092ab0ca863.js": "/precache-manifest.3f84ba70f18e819bc1a87092ab0ca863.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.3c2621cf.chunk.css.map": "/static/css/2.3c2621cf.chunk.css.map",
-    "static/css/main.4d300875.chunk.css.map": "/static/css/main.4d300875.chunk.css.map",
-    "static/media/background1.jpg": "/static/media/background1.2d8723a5.jpg",
-    "static/media/background2.jpg": "/static/media/background2.750425ce.jpg",
-    "static/media/background3.jpg": "/static/media/background3.8596f53e.jpg",
-    "static/media/background4.jpg": "/static/media/background4.96ce69a6.jpg",
-    "static/media/background5.jpg": "/static/media/background5.33737559.jpg",
-    "static/media/background6.jpg": "/static/media/background6.1ead917c.jpg",
-    "static/media/background7.jpg": "/static/media/background7.43d1e24d.jpg",
-    "static/media/imageLoading.gif": "/static/media/imageLoading.cffa9d9d.gif",
-    "static/media/loading.gif": "/static/media/loading.0d0345f6.gif",
-    "static/media/person_background.jpg": "/static/media/person_background.ddd6941e.jpg"
-  }
+    "main.css": "/react-cinema-app/static/css/main.1b95cac0.chunk.css",
+    "main.js": "/react-cinema-app/static/js/main.18d0a150.chunk.js",
+    "main.js.map": "/react-cinema-app/static/js/main.18d0a150.chunk.js.map",
+    "runtime-main.js": "/react-cinema-app/static/js/runtime-main.56387ee0.js",
+    "runtime-main.js.map": "/react-cinema-app/static/js/runtime-main.56387ee0.js.map",
+    "static/css/2.b271f14e.chunk.css": "/react-cinema-app/static/css/2.b271f14e.chunk.css",
+    "static/js/2.dc47415e.chunk.js": "/react-cinema-app/static/js/2.dc47415e.chunk.js",
+    "static/js/2.dc47415e.chunk.js.map": "/react-cinema-app/static/js/2.dc47415e.chunk.js.map",
+    "index.html": "/react-cinema-app/index.html",
+    "precache-manifest.1353e57257ee9560a5f83ee635737dae.js": "/react-cinema-app/precache-manifest.1353e57257ee9560a5f83ee635737dae.js",
+    "service-worker.js": "/react-cinema-app/service-worker.js",
+    "static/css/2.b271f14e.chunk.css.map": "/react-cinema-app/static/css/2.b271f14e.chunk.css.map",
+    "static/css/main.1b95cac0.chunk.css.map": "/react-cinema-app/static/css/main.1b95cac0.chunk.css.map",
+    "static/js/2.dc47415e.chunk.js.LICENSE.txt": "/react-cinema-app/static/js/2.dc47415e.chunk.js.LICENSE.txt",
+    "static/media/avatar.png": "/react-cinema-app/static/media/avatar.f26323d4.png",
+    "static/media/loader.gif": "/react-cinema-app/static/media/loader.2b02159f.gif",
+    "static/media/person_background.jpg": "/react-cinema-app/static/media/person_background.daac33c8.jpg",
+    "static/media/poster_placeholder.png": "/react-cinema-app/static/media/poster_placeholder.dd641036.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.56387ee0.js",
+    "static/css/2.b271f14e.chunk.css",
+    "static/js/2.dc47415e.chunk.js",
+    "static/css/main.1b95cac0.chunk.css",
+    "static/js/main.18d0a150.chunk.js"
+  ]
 }
