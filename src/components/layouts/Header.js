@@ -11,7 +11,7 @@ const Header = () => {
     const [open, setOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [error, setError] = useState("");
-
+    
     useEffect( () => {
         getGenres(dispatch);
 
@@ -19,6 +19,7 @@ const Header = () => {
     }, [dispatch]);
 
     const handleChange = useCallback((e) => {setSearchValue(e.target.value)}, [setSearchValue]);
+    
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         if(searchValue === "" || searchValue === null){
@@ -138,4 +139,4 @@ const Header = () => {
         </header>
     )
 }
-export default Header;
+export default React.memo(Header);

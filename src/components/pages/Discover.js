@@ -13,9 +13,8 @@ const Discover = () => {
     const populars = useSelector(state => state.populars);
     const dispatch = useDispatch();
 
-    console.log("DISCOVER RENDER");
-
     const [currentPage, setCurrentPage] = useState(1);
+    const [toggle, setToggle] = useState(true);
 
      useEffect( () => {
         getPopulars(dispatch, currentPage);
@@ -24,6 +23,7 @@ const Discover = () => {
     }, [dispatch, currentPage]);
 
     const changePage = useCallback((page) => {setCurrentPage(page)}, [setCurrentPage]);
+    const handleToggle = useCallback(() => setToggle(!toggle), [toggle, setToggle]);
 
     if(populars.movies === null || populars.loading === true){
         return(
@@ -38,9 +38,9 @@ const Discover = () => {
             <Header />
             <div className="page">
                 <div className="sidebar">
-                    <Sidebar thePage={"Popular"} />
+                    <Sidebar thePage={"Popular"} toggle={toggle} setToggle={handleToggle} />
                 </div>
-                <div className="discover-container">
+                <div className={!toggle ? "discover-container" : "discover-container full"}>
                     <div className="home-page">
                     <h2 className="page-title">Popular Movies</h2>
                         <div className="movies-list">

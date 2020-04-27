@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from  'react-router-dom';
 
 const Pagination = (props) => {
-
     const [currentIndex, setCurrentIndex] = useState(0);
     const [pageSection, setPageSection] = useState([0,10]);
     const { moviesPerPage, totalMovies, changePage, totalPages, currentPage } = props;
@@ -53,9 +52,9 @@ const Pagination = (props) => {
         let currentPageSection = pages.previous().value;
         setPageSection(currentPageSection);
     }
-
+    
     let endOfResults = null;
-    if(totalPages === 1 || totalPages === 2){
+    if(totalPages < 11 ){
         endOfResults = 0; // In case of only single page results
     }else{
         endOfResults = Math.abs(Math.floor(totalPages/10) - 1);
@@ -84,6 +83,5 @@ const Pagination = (props) => {
             </ul>
         </nav>
     )
-}
-
+};
 export default React.memo(Pagination);

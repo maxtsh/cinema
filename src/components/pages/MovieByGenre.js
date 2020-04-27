@@ -16,6 +16,7 @@ const MovieByGenre = (props) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [sortBy, setSortBy] = useState("popularity.desc");
+    const [toggle, setToggle] = useState(true);
 
     const genreId = props.match.params.id;
 
@@ -25,8 +26,9 @@ const MovieByGenre = (props) => {
         return () => clearMovieByGenre(dispatch);
     }, [dispatch, currentPage, genreId, sortBy]);
 
-    const changePage = useCallback((page) => {setCurrentPage(page)}, [setCurrentPage]);
-    const handleChange = useCallback(e => {setSortBy(e.target.value)}, [setSortBy]);
+    const changePage = useCallback((page) => setCurrentPage(page), [setCurrentPage]);
+    const handleChange = useCallback(e => setSortBy(e.target.value), [setSortBy]);
+    const handleToggle = useCallback(() => setToggle(!toggle), [toggle, setToggle]);
 
     if(movieByGenre.movies === null || movieByGenre.loading === true){
         return(
@@ -41,9 +43,9 @@ const MovieByGenre = (props) => {
             <Header />
             <div className="page">
                 <div className="sidebar">
-                    <Sidebar thePage={props.match.params.name} />
+                    <Sidebar thePage={props.match.params.name} toggle={toggle} setToggle={handleToggle} />
                 </div>
-                <div className="discover-container">
+                <div className={!toggle ? "discover-container" : "discover-container full"}>
                     <div className="home-page">
                     <h2 className="page-title">Genre: {props.match.params.name}</h2>
                     <select onChange={handleChange}>

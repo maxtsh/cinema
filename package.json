@@ -1,7 +1,9 @@
 {
   "name": "cinema",
-  "version": "1.1.0",
+  "author": {"name": "Max Tsh"},
+  "version": "1.1.2",
   "private": true,
+  "homepage": "https://maxtsh.github.io/react-cinema-app/",
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
@@ -27,8 +29,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
+  "keywords": ["Cinema App", "Cinema", "Movie Library"],
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -46,6 +50,6 @@
   },
   "devDependencies": {
     "eslint-plugin-react": "^7.19.0",
-    "gh-pages": "^2.1.1"
+    "gh-pages": "^2.2.0"
   }
 }

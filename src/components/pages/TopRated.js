@@ -13,7 +13,9 @@ import Loader from '../layouts/Loader';
 const TopRated = () => {
     const topRated = useSelector(state => state.topRated);
     const dispatch = useDispatch();
+
     const [currentPage, setCurrentPage] = useState(1);
+    const [toggle, setToggle] = useState(true);
 
     useEffect( () => {
         getTopRated(dispatch, currentPage);
@@ -22,6 +24,7 @@ const TopRated = () => {
     }, [dispatch, currentPage]);
 
     const changePage = useCallback((page) => {setCurrentPage(page);}, [setCurrentPage]);
+    const handleToggle = useCallback(() => setToggle(!toggle), [toggle, setToggle]);
 
     if(topRated.movies === null || topRated.loading){
         return(
@@ -36,9 +39,9 @@ const TopRated = () => {
             <Header />
             <div className="page">
                 <div className="sidebar">
-                    <Sidebar thePage={"topRated"} />
+                    <Sidebar toggle={toggle} setToggle={handleToggle} />
                 </div>
-                <div className="discover-container">
+                <div className={!toggle ? "discover-container" : "discover-container full"}>
                     <div className="home-page">
                     <h2 className="page-title">Top Rated Movies</h2>
                         <div className="movies-list">

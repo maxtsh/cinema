@@ -216,9 +216,8 @@ export const clearMovieCast = (dispatch) => {
 };
 //  ==============================================================================================
 
-export const getMovieSearch = (page, searchValue) => async (dispatch) => {
+export const getMovieSearch = async (dispatch, page, searchValue) => {
     try{
-
         const url = `${BASE_URL}search/movie?api_key=${API_KEY}&${LANG}&page=${page}&${ADULT}&query=${searchValue}`;
 
         const response = await axios.get(url);
@@ -233,7 +232,12 @@ export const getMovieSearch = (page, searchValue) => async (dispatch) => {
             payload: error
         });
     }
-}
+};
+export const clearMovieSearch = (dispatch) => {
+    dispatch({
+        type: TYPES.CLEAR_MOVIE_SEARCH
+    });
+};
 
 // Movie Trailers ============================================================================================
 export const getMovieVideos = async (dispatch, movieId) => {

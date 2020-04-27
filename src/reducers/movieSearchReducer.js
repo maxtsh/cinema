@@ -1,28 +1,35 @@
-import { GET_MOVIE_SEARCH, MOVIE_SEARCH_ERROR} from '../actions/types';
+import { GET_MOVIE_SEARCH, CLEAR_MOVIE_SEARCH, MOVIE_SEARCH_ERROR} from '../actions/types';
 
 const initialState = {
-    movieSearch: null,
-    loading: false,
+    movies: null,
+    loading: true,
     error: null
-}
+};
 
 export default (state = initialState, action) => {
     switch(action.type){
         case GET_MOVIE_SEARCH:
             return{
                 ...state,
-                movieSearch: action.payload,
-                loading: false
+                loading: false,
+                movies: action.payload
             }
 
-            case MOVIE_SEARCH_ERROR:
-                console.log(action.payload);
-                return{
-                    ...state,
-                    error: action.payload
-                }
+        case CLEAR_MOVIE_SEARCH:
+            return{
+                ...state,
+                loading: true,
+                movies: null
+            }
+
+        case MOVIE_SEARCH_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
 
         default: 
             return state;
     }
-}
+};

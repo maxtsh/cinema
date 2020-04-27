@@ -40,12 +40,15 @@ const SingleMovieDetails = (props) => {
         style = { backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie.belongs_to_collection.backdrop_path})`};
         posterUrl = `https://image.tmdb.org/t/p/original/${movie.belongs_to_collection.poster_path}`;
     }
-
+    console.log(movie.overview);
     return (
+
         <div className="main-details-wrapper">
             <h2>Story</h2>
             <div className="overview">
-                <p>{movie.overview}</p>
+                {movie.overview === "" ? 
+                (<h3 className="warning">No story available!</h3>) : 
+                (<p>{movie.overview}</p>)}
                 {movie.belongs_to_collection !== null ? (
                     <div className="belong-collection" style={style}>
                         <h3>From {movie.belongs_to_collection.name}</h3>

@@ -14,6 +14,7 @@ import Loader from '../layouts/Loader';
 
 const NowPlaying = () => {
     const [currentPage, setCurrentPage] = useState(1);
+    const [toggle, setToggle] = useState(true);
 
     const nowPlaying = useSelector(state => state.nowPlaying);
     const dispatch = useDispatch();
@@ -22,10 +23,10 @@ const NowPlaying = () => {
         getNowPlaying(dispatch, currentPage);
 
         return () => clearNowPlaying(dispatch);
-        // eslint-disable-next-line
     }, [dispatch, currentPage]);
 
-    const changePage = useCallback((page) => {setCurrentPage(page);}, [setCurrentPage]);
+    const changePage = useCallback((page) => setCurrentPage(page), [setCurrentPage]);
+    const handleToggle = useCallback(() => setToggle(!toggle), [toggle, setToggle]);
 
     if(nowPlaying.movies === null || nowPlaying.loading === true){
 
@@ -42,11 +43,11 @@ const NowPlaying = () => {
             <Header />
             <div className="page">
                 <div className="sidebar">
-                    <Sidebar thePage={"nowPlaying"} />
+                    <Sidebar thePage={"nowPlaying"} toggle={toggle} setToggle={handleToggle} />
                 </div>
-                <div className="discover-container">
+                <div className={!toggle ? "discover-container" : "discover-container full"}>
                     <div className="home-page">
-                    <h2 className="page-title">Now Playing Movies</h2>
+                        <h2 className="page-title">Now Playing Movies</h2>
                         <div className="movies-list">
                             {results.map( (result) => (
                                 <Link 

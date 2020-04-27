@@ -13,7 +13,9 @@ import Loader from '../layouts/Loader';
 const Upcoming = () => {
     const  upcoming = useSelector(state => state.upcoming);
     const dispatch = useDispatch();
+
     const [currentPage, setCurrentPage] = useState(1);
+    const [toggle, setToggle] = useState(true);
 
     useEffect(() => {
         getUpcoming(dispatch, currentPage);
@@ -22,6 +24,7 @@ const Upcoming = () => {
     }, [dispatch, currentPage]);
 
     const changePage = useCallback((page) => {setCurrentPage(page)}, [setCurrentPage]);
+    const handleToggle = useCallback(() => setToggle(!toggle), [toggle, setToggle]);
 
     if(upcoming.movies === null || upcoming.loading){
         return(
@@ -36,9 +39,9 @@ const Upcoming = () => {
             <Header />
             <div className="page">
                 <div className="sidebar">
-                    <Sidebar thePage={"upComing"} />
+                    <Sidebar thePage={"upComing"} toggle={toggle} setToggle={handleToggle} />
                 </div>
-                <div className="discover-container">
+                <div className={!toggle ? "discover-container" : "discover-container full"}>
                     <div className="home-page">
                     <h2 className="page-title">Upcoming Movies</h2>
                         <div className="movies-list">

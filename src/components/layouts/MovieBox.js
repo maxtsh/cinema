@@ -3,15 +3,13 @@ import noImagePL from '../../images/poster_placeholder.png';
 import imageLoader from '../../images/loader.gif';
 
 const MovieBox = (props) => {
-    console.log("MOVE BOX");
-
     const { movie } = props;
     const [isLoaded, setLoaded] = useState(false);
 
     useEffect(() => {
 
         return () => setLoaded(false);
-    }, [movie]);
+    }, []);
 
     const onLoad = useCallback(() => {setLoaded(true)}, [setLoaded]);
 
@@ -59,4 +57,4 @@ const MovieBox = (props) => {
         </div>
     )
 };
-export default MovieBox;
+export default React.memo(MovieBox);

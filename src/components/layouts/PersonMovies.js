@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import Loader from '../../images/loader.gif';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getPersonMovies, clearPersonMovies } from '../../actions/index';
@@ -21,8 +22,15 @@ export const PersonMovies = ({ personId }) => {
 
     const changePage = useCallback(page => setCurrentPage(page), [setCurrentPage]);
 
-    if(personMovies.movies === null || personMovies.loading){
-        return null;
+
+    if( personMovies.movies === null || personMovies.loading){
+        return (
+            <div className="discover-container">
+                <div style={{height: "100vh"}} >
+                    <img src={Loader} alt=""/>
+                </div>
+            </div>
+        )
     }
 
     const { results, total_results, total_pages } = personMovies.movies;
@@ -38,7 +46,7 @@ export const PersonMovies = ({ personId }) => {
     }
 
     return (
-        <div className="discover-container">
+        <div className="discover-container recommended">
             <div className="home-page">
             <h2>Related Movies: </h2>
                 <div style={style} className="movies-list">

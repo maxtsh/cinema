@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-// import Loader from '../../images/new_loader.gif';
+import Loader from '../../images/loader.gif';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getRecommendedMovies, clearRecommendedMovies } from '../../actions/index';
@@ -26,13 +26,14 @@ export const MovieRecommended = ({ movieId }) => {
     if( recMovies === null || recMovies.loading){
         return (
             <div className="discover-container">
-                {/* <Loader /> */}
+                <div style={{height: "100vh"}} >
+                    <img src={Loader} alt=""/>
+                </div>
             </div>
         )
     }
 
     const { results, total_results, total_pages } = recMovies;
-    const style = { gridTemplateColumns: "repeat(auto-fill, minmax(12rem, 1fr))" };
 
     if(results.length === 0){
         return(
@@ -41,9 +42,9 @@ export const MovieRecommended = ({ movieId }) => {
     }
     
     return (
-        <div className="discover-container">
+        <div className="discover-container recommended">
             <div className="home-page">
-                <div style={style} className="movies-list">
+                <div  className="movies-list">
                     {results.map( (result) => (
                         <Link 
                             className="single-movie-link" 

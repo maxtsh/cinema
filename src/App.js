@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 // REDUX
 import { Provider } from 'react-redux';
 import store from './store';
 
-// import Home from './components/pages/Home';
+// Pages
 import Home from './components/pages/Home';
 import Discover from './components/pages/Discover';
 import TopRated from './components/pages/TopRated';
@@ -15,11 +15,14 @@ import MovieByGenre from './components/pages/MovieByGenre';
 import Movie from './components/pages/Movie';
 import MovieSearch from './components/pages/MovieSearch';
 import Person from './components/pages/Person';
+import NotFound from './components/pages/NotFound';
 
-// Main CSS Style
+// Main Styles CSS
 import './styles/scss/main.css';
-// Bootstrap 4.3
+// Bootstrap 4.3 CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
+// React Modal Video CSS
+import '../node_modules/react-modal-video/scss/modal-video.css';
 
 const App = () => {
 
@@ -36,10 +39,10 @@ const App = () => {
           <Route exact path='/movie/:id' component={Movie} />
           <Route exact path='/search/:movie/' component={MovieSearch} />
           <Route exact path='/person/:id' component={Person} />
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </Provider>
   )
 }
-
-export default App
+export default App;
