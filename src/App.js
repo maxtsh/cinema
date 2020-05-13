@@ -18,7 +18,6 @@ import Person from './components/pages/Person';
 import NotFound from './components/pages/NotFound';
 
 const App = () => {
-
   return (
     <Provider store={store}>
       <Router>
@@ -36,6 +35,6 @@ const App = () => {
         </Switch>
       </Router>
     </Provider>
-  )
+  );
 }
 export default App;
