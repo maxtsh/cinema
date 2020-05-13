@@ -35,7 +35,7 @@ const Upcoming = () => {
     }
     const { results, total_results, total_pages } = upcoming.movies;
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div className="page">
                 <div className="sidebar">
@@ -65,7 +65,7 @@ const Upcoming = () => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     ) 
 };
 export default Upcoming;

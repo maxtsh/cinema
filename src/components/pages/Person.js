@@ -36,7 +36,7 @@ const Person = (props) => {
     };
     
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div className="main-container">
                 <div className="main-header" style={style}></div>
@@ -54,7 +54,7 @@ const Person = (props) => {
                 </div>
             </div>
             <Footer />
-        </React.Fragment>
+        </>
     )
 };
 export default Person;

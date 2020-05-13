@@ -72,7 +72,7 @@ const Movie = (props) => {
     const style = { backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.6) 3%, rgba(0,0,0,0.8) 50%), url(https://image.tmdb.org/t/p/original/${movie.movie.backdrop_path})`};
     const director = movieCast.members.crew.filter( crew => crew.job === "Director");
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div className="main-container">
                 <div className="main-header" style={style}></div>
@@ -93,7 +93,7 @@ const Movie = (props) => {
                 </div>
             </div>
             <Footer />
-        </React.Fragment>
+        </>
     )
 };
 export default Movie;

@@ -123,7 +123,7 @@ const Home = () => {
     const style = {backgroundImage: `url(https://image.tmdb.org/t/p/original/${backGrounds[index]})`};
 
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div style={style} className="home-container">
                 <div className="container-fluid">
@@ -185,7 +185,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 };
 export default Home;

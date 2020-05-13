@@ -37,7 +37,7 @@ const MovieSearch = (props) => {
     const { results, total_results, total_pages } = movieSearch.movies;
 
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div className="page">
                 <div className="sidebar">
@@ -67,7 +67,7 @@ const MovieSearch = (props) => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 };
 export default MovieSearch;

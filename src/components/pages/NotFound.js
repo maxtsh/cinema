@@ -16,7 +16,7 @@ const NotFound = () => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div className="container">
                 <div className="not-found-svg">
@@ -43,7 +43,7 @@ const NotFound = () => {
                     </form>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 }
 export default NotFound;
