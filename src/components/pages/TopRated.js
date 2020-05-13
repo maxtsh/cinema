@@ -35,7 +35,7 @@ const TopRated = () => {
     }
     const { results, total_results } = topRated.movies;  
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div className="page">
                 <div className="sidebar">
@@ -64,7 +64,7 @@ const TopRated = () => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 }
 export default TopRated;

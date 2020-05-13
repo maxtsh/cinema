@@ -39,7 +39,7 @@ const MovieByGenre = (props) => {
     }
     const { results, total_results, total_pages } = movieByGenre.movies;
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div className="page">
                 <div className="sidebar">
@@ -75,7 +75,7 @@ const MovieByGenre = (props) => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 };
 export default MovieByGenre;

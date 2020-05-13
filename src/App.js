@@ -17,15 +17,7 @@ import MovieSearch from './components/pages/MovieSearch';
 import Person from './components/pages/Person';
 import NotFound from './components/pages/NotFound';
 
-// Main Styles CSS
-import './styles/scss/main.css';
-// Bootstrap 4.3 CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
-// React Modal Video CSS
-import '../node_modules/react-modal-video/scss/modal-video.css';
-
 const App = () => {
-
   return (
     <Provider store={store}>
       <Router>
@@ -43,6 +35,6 @@ const App = () => {
         </Switch>
       </Router>
     </Provider>
-  )
+  );
 }
 export default App;

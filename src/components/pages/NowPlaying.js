@@ -39,7 +39,7 @@ const NowPlaying = () => {
 
     const { results, total_results, total_pages } = nowPlaying.movies;
     return (
-        <React.Fragment>
+        <>
             <Header />
             <div className="page">
                 <div className="sidebar">
@@ -69,7 +69,7 @@ const NowPlaying = () => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 };
 export default NowPlaying;

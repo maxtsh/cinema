@@ -34,7 +34,7 @@ const Discover = () => {
     }
     const { results, total_results, total_pages } = populars.movies;
     return (
-            <React.Fragment>
+            <>
             <Header />
             <div className="page">
                 <div className="sidebar">
@@ -64,7 +64,7 @@ const Discover = () => {
                     </div>
                 </div>
             </div>
-        </React.Fragment>
+        </>
     )
 }
 export default Discover;
